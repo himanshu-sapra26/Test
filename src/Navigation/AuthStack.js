@@ -18,14 +18,14 @@ function AuthStack(Stack) {
                 name={navigationStrings.LOGIN}
 
             />
-            {/* <Stack.Screen
+            <Stack.Screen
                 component={Signup}
                 options={{
                     headerShown: false
                 }}
                 name={navigationStrings.SIGNUP}
 
-            /> */}
+            />
            
         </Fragment>
     )

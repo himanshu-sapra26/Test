@@ -14,14 +14,14 @@ export default function () {
         <NavigationContainer>
             <Stack.Navigator>
                     {AuthStack(Stack)}
-                    {/* <Stack.Screen
+                    <Stack.Screen
                 component={HomePage}
                 options={{
                     headerShown: false
                 }}
                 name={navigationStrings.HOMEPAGE}
 
-            /> */}
+            />
 
 </Stack.Navigator>
         </NavigationContainer>
