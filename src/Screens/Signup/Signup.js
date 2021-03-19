@@ -9,6 +9,7 @@ import {
   Image,
   Alert
 } from 'react-native';
+import navigationStrings from '../../constants/navigationStrings';
 
 export default class SignUp extends Component {
 
@@ -20,9 +21,7 @@ export default class SignUp extends Component {
     }
   }
 
-  onClickListener = (viewId) => {
-    Alert.alert("Alert", "Button pressed "+viewId);
-  }
+ 
 
   render() {
     return (
@@ -54,16 +53,16 @@ export default class SignUp extends Component {
           <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/password.png'}}/>
         </View>
 
-        <TouchableOpacity style={styles.btnByRegister} onPress={() => this.onClickListener('restore_password')}>
+        <TouchableOpacity style={styles.btnByRegister}>
             <Text style={styles.textByRegister}>By registering on this App you confirm that you have read and accept our policy</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
+        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate(navigationStrings.HOMEPAGE)}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('register')}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={()=>this.props.navigation.navigate(navigationStrings.LOGIN)}>
             <Text style={styles.btnText}>Have an account?</Text>
         </TouchableOpacity>
       </View>
@@ -124,13 +123,14 @@ const styles = StyleSheet.create({
     backgroundColor:'transparent'
   },
   btnByRegister: {
-    height:15,
+    height:80,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical:20,
     width:300,
-    backgroundColor:'transparent'
+    backgroundColor:'transparent',
+    
   },
   loginButton: {
     backgroundColor: "#00b5ec",
