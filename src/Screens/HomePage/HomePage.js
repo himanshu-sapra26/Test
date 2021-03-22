@@ -16,6 +16,8 @@ import {
 import imagePath from "../../constants/imagePath";
 import Clothes from "../../Components/Clothes";
 import MyCarousel from "../../Components/Carousel";
+import Cart from "../../Screens/Cart/Cart";
+
 export default class Homepage extends Component {
     constructor(props) {
       super(props);
@@ -161,43 +163,39 @@ export default class Homepage extends Component {
           selectedItem:'',
         };
       }
-    //   _onClickCart = (id) => {
-    //     console.log(id);
+      _onClickCart = (id) => {
+        console.log(id);
          
-    //      const { clothes, blankCartArray, counter} = this.state;
-    //      blankCartArray.push(clothes[id-1])
-    //     this.setState({blankCartArray: blankCartArray, counter: counter+1})
+         const { clothes, blankCartArray, counter} = this.state;
+
+         let blankArray = [...clothes] ;
+
+         if(!blankCartArray.includes(blankArray[id - 1])){
+         blankCartArray.push(clothes[id-1])
+        this.setState({blankCartArray: blankCartArray, counter: counter+1})
+         }else{
+           alert("Item already in cart");
+         }
     
     
-    // };
+    };
     checkCart=()=>{
       const {blankCartArray}=this.state;
        this.props.navigation.navigate('cart',{data:blankCartArray});
      
     }
-      componentDidMount(){
-        this.focusListener = this.props.navigation.addListener('focus',()=>{
-            if(this.props.route.params){
-                let itemsadd=this.props.route.params.itemsinfo
-                this._onClickCart(itemsadd)
-                this.props.route.params=null
-            }
-        })
-      }
-      componentWillUnmount(){
-        if(this.focusListener){
-            this.focusListener();
-        }
-      }
+      
       render() {
         
-        
+         const { clothes,counter } = this.state
         return (
             <View>
+              <ScrollView>
             <View style={{flexDirection:'row',backgroundColor:'pink'}}>
-                <Image source={imagePath.hamburger} style={{height:30,width:40,marginTop:10,resizeMode:'contain'}}></Image>
+                <TouchableOpacity><Image source={imagePath.hamburger} style={{height:30,width:40,marginTop:10,resizeMode:'contain'}}></Image></TouchableOpacity>
                 <Image source={imagePath.logo} style={{height:50,width:150,marginLeft:70}}></Image>
-                <Image source={imagePath.cart} style={{height:30,width:30,marginLeft:50,marginTop:10}}></Image> 
+                <TouchableOpacity onPress={this.checkCart}><Image source={imagePath.cart} style={{height:30,width:30,marginLeft:50,marginTop:10}}></Image></TouchableOpacity>
+                <Text style={{marginBottom:14,color:'red'}}>{counter}</Text>
               </View>
                 <ScrollView
               horizontal={true}
@@ -223,7 +221,7 @@ export default class Homepage extends Component {
                 ></Image>
                 <Text style={{ color: "white", textAlign: "center" }}>MEN</Text>
               </View>
-              <View
+              {/* <View
                 style={{
                   backgroundColor: "purple",
                   padding: 10,
@@ -242,7 +240,7 @@ export default class Homepage extends Component {
                 <Text style={{ color: "white", alignItems: "center" }}>
                   WOMEN
                 </Text>
-              </View>
+              </View> */}
 
               <View
                 style={{
@@ -295,7 +293,7 @@ export default class Homepage extends Component {
                 }}
               >
                 <Image
-                  style={{ height: 60, width: 50 }}
+                  style={{ height: 60, width: 50 ,marginLeft:5}}
                   source={{
                     uri:
                       "https://assets.ajio.com/medias/sys_master/root/20200728/iLGW/5f2047bbf997ddfa532446f7/arrow_black_textured_slip-on_loafers.jpg",
@@ -306,7 +304,7 @@ export default class Homepage extends Component {
                 </Text>
               </View>
 
-              <View
+              {/* <View
                 style={{
                   backgroundColor: "green",
                   padding: 10,
@@ -325,7 +323,7 @@ export default class Homepage extends Component {
                 <Text style={{ color: "white", textAlign: "center" }}>
                   WATCHES
                 </Text>
-              </View>
+              </View> */}
               <View
                 style={{
                   backgroundColor: "orange",
@@ -351,7 +349,7 @@ export default class Homepage extends Component {
               <MyCarousel />
             </View>
             <FlatList
-              data={Clothes}
+              data={clothes}
               showsVerticalScrollIndicator={false}
               numColumns={2}
               keyExtractor={(item) => item.id}
@@ -360,10 +358,19 @@ export default class Homepage extends Component {
               )}
               renderItem={({ item }) => (
                 <Clothes data={item} 
-                // _onClickCart={this._onClickCart}
+                 _onClickCart={this._onClickCart}
                 />
               )}
             />
+            
+            <Image
+              source={{
+                uri:
+                  "https://assets.ajio.com/medias/sys_master/images/images/h6f/hd4/28296272773150/29102020-M-SHP-ajiocares-strip.jpg",
+              }}
+              style={{ height: 80, width: 370, marginTop: 5 }}
+            />
+            </ScrollView>
               </View> 
 
         )}

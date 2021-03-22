@@ -28,7 +28,7 @@ export default class MyCarousel extends Component {
     _renderItem = ({item, index}) => {
         return (
             <View style={style.slide}>
-                <Image source={item.imgUrl} style={{width:355, height:220}}/>
+                <Image source={item.imgUrl} style={{width:355, height:220,marginTop:10}}/>
             </View>
         );
     }

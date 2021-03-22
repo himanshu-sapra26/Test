@@ -4,6 +4,7 @@ import navigationStrings from '../constants/navigationStrings';
 import {useNavigation} from '@react-navigation/native';
 
 
+
 export default function Clothes(props){
     const{onCart,data,_onClickCart}=props;
     const navigation=useNavigation();
@@ -12,8 +13,8 @@ export default function Clothes(props){
         
         <>
         <View style={{marginLeft:30}}>
-             {/* <TouchableOpacity onPress={()=>navigation.navigate(navigationStrings.DETAILPAGE,{item:data})}> </TouchableOpacity> */}
-            <Image source={{uri:data.pic}}  style={{height:200,width:130,marginTop:20}}/> 
+             <TouchableOpacity onPress={()=>navigation.navigate(navigationStrings.DETAILPAGE,{item:data})}> 
+            <Image source={{uri:data.pic}}  style={{height:200,width:130,marginTop:20}}/></TouchableOpacity> 
             
             <Text>{data.Name}</Text>
             <View  style={{flexDirection:'row'}}>
@@ -22,13 +23,14 @@ export default function Clothes(props){
             <Text style={styles.Price1}>${data.newPrice}</Text>
             <Text style={styles.Price2}>{data.Off}</Text>
             </View>
-            {/* <TouchableOpacity style={{backgroundColor: "grey",
+            <TouchableOpacity style={{
+                backgroundColor: '#cdd0ca',
             padding: 10,
             width:130,
             borderRadius:65,
             textAlign:'center',
             }}>
-            <Text onPress={()=>{_onClickCart(data.id)}}>Add to Cart</Text></TouchableOpacity> */}
+            <Text onPress={()=>{_onClickCart(data.id)}}>Add to Cart</Text></TouchableOpacity>
 
         </View>
         </>

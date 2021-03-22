@@ -11,20 +11,68 @@ import {
 } from 'react-native';
 import imagePath from '../../constants/imagePath';
 import navigationStrings from '../../constants/navigationStrings';
-
-export default class LoginView extends Component {
+import Validation from '../../Components/Validation';
+import {showMessage} from 'react-native-flash-message';
+import CheckData from '../../Components/CheckData';
+import apis from '../../apis';
+export default class Login extends Component {
 
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       email   : '',
       password: '',
+      isValid:false,
+      isVisible:false,
     }
   }
 
+  isValidData = () => {
+    let {email, password} = this.state;
+    const error = Validation({
+      
+      email: email,
+      password: password,
+      
+    });
+    if (error) {
+      showMessage({
+        type: 'danger',
+        icon: 'danger',
+        message: error,
+      });
+      return false;
+    }
+    return true;
+  };
+
+
+  CheckData = ()=>{
+    const{email,password} = this.state;
+    if(this.isValidData()){
+        this.setState({
+            isValid:true,
+            isVisible:true
+        })
+        apis.login({ email,password })
+        .then(response=> {
+            console.log(JSON.stringify(response))
+            
+              this.props.navigation.navigate(navigationStrings.HOMEPAGE)
+              
+                
+            
+        }).catch((error) =>{
+          this.setState({isValid:false}),
+          console.log(error)
+        })
+    }
+  
+    }
 
 
   render() {
+    const{isValid ,isValidData,isVisible}=this.state;
     return (
       <View style={styles.container}>
           <Image source={imagePath.logo} style={{height:170,width:170}}/>
@@ -46,7 +94,7 @@ export default class LoginView extends Component {
               onChangeText={(password) => this.setState({password})}/>
         </View>
 
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate(navigationStrings.HOMEPAGE)}>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.CheckData}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableHighlight>
 
@@ -57,6 +105,7 @@ export default class LoginView extends Component {
         <TouchableHighlight style={styles.buttonContainer} onPress={()=>this.props.navigation.navigate(navigationStrings.SIGNUP)}>
             <Text>Register</Text>
         </TouchableHighlight>
+        <CheckData isVisible={isVisible}/>
       </View>
     );
   }

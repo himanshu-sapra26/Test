@@ -17,9 +17,8 @@ import CartView from "../../Components/cartView";
 import Clothes from "../../Components/Clothes";
 import { NavigationContainer} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import navigationStrings from "../../Navigation/navigationStrings";
 import imagePath from "../../constants/imagePath";
-
+import navigationStrings from "../../constants/navigationStrings";
 
 
 export default function Cart(props) {

@@ -1,6 +1,6 @@
-export const API_BASE_URL="http:/232.243.13..234";
+const API_BASE_URL = 'http://192.168.99.194:8002';
+const getApiUrl = (endpoint) => API_BASE_URL + endpoint;
+export const LOGIN = getApiUrl('/user/loginUser');
+export const SIGNUP = getApiUrl('/user/registerUser');
 
-export const getApiUrl=(endpoint)=>`${API_BASE_URL}${endpoint}`
 
-export const LOGIN_API=getApiUrl("/login");
-export const SIGNUP_API=getApiUrl("/signup")
